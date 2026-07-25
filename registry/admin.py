@@ -3,5 +3,5 @@ from .models import Gift
 
 @admin.register(Gift)
 class GiftAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'status', 'buyer_name')
+    list_display = ('name', 'price', 'link', 'status', 'buyer_name')
     list_filter = ('status', 'category')

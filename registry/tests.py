@@ -11,6 +11,7 @@ class ReserveGiftViewTests(APITestCase):
 		self.gift = Gift.objects.create(
 			name='Jogo de Taças',
 			description='Conjunto com 6 taças',
+			link='https://example.com/gifts/jogo-de-tacas',
 			category='CASA',
 			price='199.90',
 		)
@@ -57,3 +58,4 @@ class ReserveGiftViewTests(APITestCase):
 		self.assertEqual(self.gift.buyer_email, 'maria@email.com')
 		self.assertEqual(self.gift.payment_proof_type, 'PIX')
 		self.assertTrue(bool(self.gift.payment_proof_file))
+		self.assertEqual(self.gift.link, 'https://example.com/gifts/jogo-de-tacas')

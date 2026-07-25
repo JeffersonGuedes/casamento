@@ -8,6 +8,7 @@ class GiftSerializer(serializers.ModelSerializer):
             'id', 
             'name', 
             'description', 
+            'link',
             'category', 
             'price', 
             'image_base64', 
