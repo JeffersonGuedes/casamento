@@ -45,10 +45,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGINS = [
+    'https://lavinia.jeffersonguedes.com.br',
+]
 
 ROOT_URLCONF = 'core.urls'
-
 
 
 TEMPLATES = [
