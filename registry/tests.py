@@ -6,6 +6,24 @@ from rest_framework.test import APITestCase
 from .models import Gift
 
 
+class GiftListViewTests(APITestCase):
+	def test_list_gifts_returns_200(self):
+		Gift.objects.create(
+			name='Jogo de Taças',
+			description='Conjunto com 6 taças',
+			link='https://example.com/gifts/jogo-de-tacas',
+			category='CASA',
+			price='199.90',
+		)
+
+		response = self.client.get('/api/registry/gifts/')
+
+		self.assertEqual(response.status_code, status.HTTP_200_OK)
+		self.assertEqual(len(response.data), 1)
+		self.assertIn('image_base64', response.data[0])
+		self.assertIsNone(response.data[0]['image_base64'])
+
+
 class ReserveGiftViewTests(APITestCase):
 	def setUp(self):
 		self.gift = Gift.objects.create(

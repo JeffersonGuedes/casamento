@@ -1,7 +1,11 @@
+import base64
+
 from rest_framework import serializers
 from .models import Gift
 
 class GiftSerializer(serializers.ModelSerializer):
+    image_base64 = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = Gift
         fields = [
@@ -12,6 +16,7 @@ class GiftSerializer(serializers.ModelSerializer):
             'category', 
             'price', 
             'image', 
+            'image_base64',
             'status', 
             'buyer_name',
             'buyer_email',
@@ -28,6 +33,16 @@ class GiftSerializer(serializers.ModelSerializer):
             'payment_proof_file',
             'updated_at',
         ]
+
+    def get_image_base64(self, obj):
+        if not obj.image:
+            return None
+
+        try:
+            obj.image.open('rb')
+            return base64.b64encode(obj.image.read()).decode('utf-8')
+        finally:
+            obj.image.close()
 
 
 class ReserveGiftSerializer(serializers.Serializer):
