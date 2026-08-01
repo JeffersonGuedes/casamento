@@ -11,7 +11,7 @@ class GiftSerializer(serializers.ModelSerializer):
             'link',
             'category', 
             'price', 
-            'image_base64', 
+            'image', 
             'status', 
             'buyer_name',
             'buyer_email',
