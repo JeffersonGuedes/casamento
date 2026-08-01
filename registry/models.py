@@ -26,7 +26,12 @@ class Gift(models.Model):
     link4 = models.CharField(max_length=500, blank=True, null=True)
     category = models.CharField(max_length=100, choices=CATEGORY_CHOICES)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    image_base64 = models.TextField(blank=True, null=True, help_text="String da imagem em Base64")
+    image = models.ImageField(
+        upload_to='gifts/images/', 
+        blank=True, 
+        null=True, 
+        help_text="Faça o upload da imagem do presente"
+    )
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='AVAILABLE')
     buyer_name = models.CharField(max_length=255, blank=True, null=True)
     buyer_email = models.EmailField(blank=True, null=True)
