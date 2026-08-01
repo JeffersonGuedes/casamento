@@ -7,7 +7,10 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
+    python3-dev \
     libpq-dev \
+    libjpeg-dev \
+    zlib1g-dev \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
@@ -23,6 +26,8 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq5 \
+    libjpeg62-turbo \
+    zlib1g \
     && rm -rf /var/lib/apt/lists/*
 
 RUN addgroup --system django && adduser --system --group django
@@ -36,8 +41,8 @@ COPY . .
 
 RUN SECRET_KEY=dummy python manage.py collectstatic --noinput
 
-# Altera a propriedade de todos os arquivos (incluindo a nova pasta staticfiles) para o usuário django
 RUN chown -R django:django /app
+
 USER django
 
 EXPOSE 8000
