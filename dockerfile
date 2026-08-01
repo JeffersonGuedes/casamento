@@ -39,12 +39,12 @@ RUN pip install --no-cache /wheels/*
 
 COPY . .
 
-RUN SECRET_KEY=dummy python manage.py collectstatic --noinput
-
 RUN chown -R django:django /app
 
-USER django
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 EXPOSE 8000
 
-CMD ["sh", "-c", "python manage.py migrate --noinput && gunicorn --bind 0.0.0.0:8000 --workers 3 core.wsgi:application"]
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "core.wsgi:application"]
