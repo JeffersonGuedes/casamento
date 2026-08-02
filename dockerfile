@@ -30,7 +30,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     zlib1g \
     && rm -rf /var/lib/apt/lists/*
 
-RUN addgroup --system django && adduser --system --group django
+RUN addgroup --system django && adduser --system --group --home /app django
 
 COPY --from=builder /app/wheels /wheels
 COPY --from=builder /app/requirements.txt .
