@@ -7,13 +7,18 @@ from .models import Gift
 from .serializers import GiftSerializer, ReserveGiftSerializer
 from .services import reserve_gift
 
+from rest_framework import generics, filters
+
 class GiftListCreateView(generics.ListCreateAPIView):
     """
-    GET: Lista todos os presentes.
+    GET: Lista todos os presentes (com suporte a ordenação por preço).
     POST: Cria um novo presente usando o GiftSerializer.
     """
     queryset = Gift.objects.all()
     serializer_class = GiftSerializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['price']
+    ordering = ['price']
 
 class ReserveGiftView(APIView):
     """
